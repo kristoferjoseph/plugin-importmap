@@ -1,6 +1,6 @@
 {
   "name": "plugin-importmap",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "scripts": {
     "start": "arc sandbox",
     "test": "cross-env tape './test/integration/test.js' | tap-arc"
