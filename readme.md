@@ -1,27 +1,33 @@
-# progressive bundle demo
+# Architect importmap plugin 
 
-Automatically bundle esmodules in `/public`. This is for bundling frontend assets.
+## Install
+`npm i plugin-importmap`
 
-## Usage proposal
-
-Example `app.arc`; enable bundling by declaring the `bundle` folder for build output:
-
-```arc
-@app
-myapp
-
-@static
-bundle dist # currently in this app a default value; but think if we build in this would be the toggle 'on'
-entry index.js # pre bundle file(s) at deploy time for max speeds
+## Usage
+Add `importmap` to the `@plugins` pragma in your `app.arc` file.
+```
+@plugins
+importmap
 ```
 
-# todo
+Add an `@importmap` pragma to your `app.arc` file and declare the name and filepath of the files you want to make available to the browser.
+```
+@importmap
+hello src/shared/hello.mjs
+```
+This will expose the `hello.mjs` file inside your handler at:
+`import { hello } from '@architect/importmap/hello.mjs'`
 
-- [ ] add `src/http/get-index/get-bundle` to `@architect/functions`
-- [ ] speed up sync
-- [ ] auto ignore bundle folder in deploy
+The files will be bundled, fingerprinted and exposed in a map for sending to the browser here:
+`import map from '@architect/importmap/browser/index.mjs'`
 
-# future
-- [ ] merge capability maybe instead
-- [ ] is many buckets possible? (seems no because local dev)
-- [ ] investigate using internal dynamo table locally to hide local manifest.json fugly
+In the format:
+```
+export default {
+  "hello": "/_importmap/hello-c63b938.mjs",
+}
+```
+where the path is to the bundled and fingerprinted file.
+
+Import the hello file in the browser
+`<script src="/_importmap/hello-c63b938.mjs" type="module"></script>`
