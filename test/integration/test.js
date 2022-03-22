@@ -1,5 +1,5 @@
 const { join } = require('path')
-const { existsSync, readFileSync } = require('fs')
+const { existsSync } = require('fs')
 const test = require('tape')
 const { get } = require('tiny-json-http')
 const sandbox = require('@architect/sandbox')
@@ -19,7 +19,7 @@ test('should create importmap', async t => {
   t.end()
 })
 
-test('exports correctly', async t => {
+test('exports correct', async t => {
   try {
     const result = await get({ url: url('_importmap/hello-c63b938.mjs') })
     const body = result.body

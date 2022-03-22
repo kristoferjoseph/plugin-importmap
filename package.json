@@ -1,4 +1,5 @@
 {
+  "name": "@begin/plugin-importmap",
   "scripts": {
     "start": "arc sandbox",
     "test": "cross-env tape './test/integration/test.js' | tap-arc"
